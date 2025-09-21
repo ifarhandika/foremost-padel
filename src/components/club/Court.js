@@ -36,9 +36,10 @@ const carouselItems = [
 ]
 
 const Court = () => {
-  function NextArrow() {
+  function NextArrow({ onClick }) {
     return (
       <button
+        onClick={onClick}
         className="absolute -right-12 top-1/2 -translate-y-1/2 z-20
                  w-10 h-10 flex items-center justify-center 
                  bg-white text-[#022754] rounded-full shadow-lg
@@ -48,9 +49,10 @@ const Court = () => {
     )
   }
 
-  function PrevArrow() {
+  function PrevArrow({ onClick }) {
     return (
       <button
+        onClick={onClick}
         className="absolute -left-12 top-1/2 -translate-y-1/2 z-20
                  w-10 h-10 flex items-center justify-center 
                  bg-white text-[#022754] rounded-full shadow-lg
@@ -63,7 +65,7 @@ const Court = () => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 600,
+    speed: 700,
     slidesToShow: 3,
     slidesToScroll: 1,
     centerMode: true,

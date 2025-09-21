@@ -28,7 +28,7 @@ export default function WhatAwaits() {
 
   return (
     <section className="bg-[#0A2B66]/70 text-white rounded-3xl w-3/4 mx-auto px-6 py-12 sm:px-8 md:px-12 lg:px-16 xl:px-24 mt-[40px] mb-[40px]">
-      <div className="flex flex-col md:grid md:grid-cols-3 items-center gap-10 md:gap-14 lg:gap-20">
+      <div className="flex flex-col lg:grid lg:grid-cols-3 items-center gap-10 md:gap-14 lg:gap-20">
         <div className="flex justify-center items-center text-center md:text-left">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-snug text-center">
             WHAT <br className="hidden sm:block" /> AWAITS{" "}

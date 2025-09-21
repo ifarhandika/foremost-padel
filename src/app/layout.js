@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Navbar />
-        <main className="relative overflow-hidden w-screen min-h-screen">
+        <main className="relative overflow-hidden min-h-screen">
           {children}
         </main>
       </body>
