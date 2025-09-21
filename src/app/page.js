@@ -1,3 +1,4 @@
+import Court from "@/components/club/Court"
 import Hero from "@/components/Hero"
 import Section from "@/components/Section"
 
