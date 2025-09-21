@@ -10,6 +10,7 @@ const Tournament = () => {
   }
 
   const sectionDetails = {
+    id: "tournament",
     title: "UPCOMING",
     description: "Foremost Padel Series I",
   }
@@ -23,6 +24,7 @@ const Tournament = () => {
       />
 
       <Section
+        id={sectionDetails.id}
         title={sectionDetails.title}
         description={sectionDetails.description}
       />

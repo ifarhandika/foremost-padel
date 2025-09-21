@@ -9,6 +9,7 @@ const Investor = () => {
   }
 
   const sectionDetails = {
+    id: "investor",
     title: "HOW IT WORKS",
     description: "Here's the Franchise Onboarding Process",
   }
@@ -22,6 +23,7 @@ const Investor = () => {
       />
 
       <Section
+        id={sectionDetails.id}
         title={sectionDetails.title}
         description={sectionDetails.description}
       />

@@ -9,6 +9,7 @@ export default function Home() {
   }
 
   const sectionDetails = {
+    id: "club",
     title: "THE COURT",
     description: "World-Class Standard",
   }
@@ -21,6 +22,7 @@ export default function Home() {
         backgroundImage={heroDetails.backgroundImage}
       />
       <Section
+        id={sectionDetails.id}
         title={sectionDetails.title}
         description={sectionDetails.description}
       />
