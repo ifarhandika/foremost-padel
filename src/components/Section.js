@@ -1,7 +1,9 @@
 "use client"
 import Court from "./club/Court"
 import CourtDetails from "./club/CourtDetails"
+import Title from "./Title"
 import ListTournament from "./tournament/ListTournament"
+import Features from "./tournament/Features"
 
 const sectionComponents = {
   club: (
@@ -13,6 +15,8 @@ const sectionComponents = {
   tournament: (
     <>
       <ListTournament />
+      <Title title="WHAT'S INCLUDED" />
+      <Features />
     </>
   ),
   investor: (
