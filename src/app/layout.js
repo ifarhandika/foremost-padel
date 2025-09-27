@@ -4,6 +4,9 @@ import Navbar from "@/components/Navbar"
 export const metadata = {
   title: "Foremost Padel",
   description: "Foremost Padel",
+  icons: {
+    icon: "/foremost-logo.png"
+  }
 }
 
 export default function RootLayout({ children }) {

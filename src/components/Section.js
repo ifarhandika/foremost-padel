@@ -1,5 +1,7 @@
+"use client"
 import Court from "./club/Court"
 import CourtDetails from "./club/CourtDetails"
+import ListTournament from "./tournament/ListTournament"
 
 const sectionComponents = {
   club: (
@@ -10,7 +12,7 @@ const sectionComponents = {
   ),
   tournament: (
     <>
-      <p className="text-white">Tournament section coming soon...</p>
+      <ListTournament />
     </>
   ),
   investor: (
