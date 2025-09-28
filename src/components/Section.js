@@ -5,6 +5,7 @@ import Title from "./Title"
 import ListTournament from "./tournament/ListTournament"
 import Features from "./tournament/Features"
 import HowItWorks from "./investor/HowItWorks"
+import ListInvestor from "./investor/ListInvestor"
 
 const sectionComponents = {
   club: (
@@ -23,6 +24,8 @@ const sectionComponents = {
   investor: (
     <>
       <HowItWorks />
+      <Title title="REMARKABLE INVESTOR" />
+      <ListInvestor />
     </>
   ),
 }

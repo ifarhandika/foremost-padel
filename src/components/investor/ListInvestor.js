@@ -2,36 +2,62 @@
 import Slider from "react-slick"
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa"
 
-const carouselItems = [
+const listOfInvestors = [
   {
     id: 1,
-    image: "/court1.png",
-    title: "PARKING AREA",
+    name: "Reza Ilham",
+    description: "Mega Asset Management",
+    occupation: "Fund Manager",
+    image: "/rezailham.png",
   },
   {
     id: 2,
-    image: "/court2.png",
-    title: "RECEPTIONIST",
+    name: "Grace Christiadi",
+    description: "International Finance Corporation",
+    occupation: "Investment Analyst",
+    image: "/grace.png",
   },
   {
     id: 3,
-    image: "/court3.png",
-    title: "COURTS",
+    name: "Masagus Achmad Aqsha",
+    description: "Astra International Tbk.",
+    occupation: "Product Manager",
+    image: "/masagus.png",
   },
   {
     id: 4,
-    image: "/court1.png",
-    title: "COURTS",
+    name: "Aisyah Moulyni",
+    description: "Telkom Indonesia",
+    occupation: "B2B Digital Marketer",
+    image: "/aisyahmoulyni.png",
   },
   {
     id: 5,
-    image: "/court2.png",
-    title: "COURTS",
+    name: "Olga Patricia",
+    description: "Bank Central Asia",
+    occupation: "Wealth Specialist",
+    image: "/olgapatricia.png",
   },
   {
     id: 6,
-    image: "/court3.png",
-    title: "COURTS",
+    name: "Muhammad Fauzan",
+    description: "Dana Indonesia",
+    occupation: "Product Developer",
+    image: "/muhammadfauzan.png",
+  },
+  {
+    id: 7,
+    name: "Diva Milano",
+    description: "Altha Consulting",
+    occupation: "Consultant",
+    image: "/divamilano.png",
+  },
+  {
+    id: 6,
+    name: "Muhammad Alif",
+    description: "Traveloka",
+    occupation: "Senior Performance Marketing",
+    image: "/muhammadalif.png",
   },
 ]
 
@@ -91,16 +117,17 @@ const Court = () => {
   return (
     <div className="w-full max-w-[100rem] mx-auto py-10 px-10">
       <Slider {...settings}>
-        {carouselItems.map((item) => (
+        {listOfInvestors.map((item) => (
           <div key={item.id} className="px-3">
-            <div className="relative shadow-lg border-[20px] border-[#022754] overflow-hidden">
+            <div className="relative shadow-lg  overflow-hidden">
               <img
                 src={item.image}
-                alt={item.title}
+                alt={item.occupation}
                 className="w-full h-[400px] md:h-[500px] object-cover"
               />
-              <div className="absolute bottom-0 w-full bg-black/60 text-white text-lg md:text-xl font-bold text-center py-3">
-                {item.title}
+              <div className="w-full bg-[#0D265A] text-white text-lg md:text-xl text-center py-3">
+                <h3 className="font-bold text-2xl">{item.occupation}</h3>
+                <h4 className="font-normal">{item.description}</h4>
               </div>
             </div>
           </div>
