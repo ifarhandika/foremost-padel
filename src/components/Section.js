@@ -4,6 +4,7 @@ import CourtDetails from "./club/CourtDetails"
 import Title from "./Title"
 import ListTournament from "./tournament/ListTournament"
 import Features from "./tournament/Features"
+import HowItWorks from "./investor/HowItWorks"
 
 const sectionComponents = {
   club: (
@@ -21,8 +22,7 @@ const sectionComponents = {
   ),
   investor: (
     <>
-      {/* <Investor /> */}
-      <p className="text-white">Investor section coming soon...</p>
+      <HowItWorks />
     </>
   ),
 }
