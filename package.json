@@ -8,6 +8,7 @@
     "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "flowbite-react": "^0.12.9",
     "framer-motion": "^12.23.22",
     "next": "15.5.3",
