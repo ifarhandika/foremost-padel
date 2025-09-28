@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "flowbite-react": "^0.12.9",
+    "framer-motion": "^12.23.22",
     "next": "15.5.3",
     "react": "19.1.0",
+    "react-countup": "^6.5.3",
     "react-dom": "19.1.0",
     "react-icons": "^4.10.1",
     "react-slick": "^0.31.0",

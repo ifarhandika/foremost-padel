@@ -6,6 +6,7 @@ import ListTournament from "./tournament/ListTournament"
 import Features from "./tournament/Features"
 import HowItWorks from "./investor/HowItWorks"
 import ListInvestor from "./investor/ListInvestor"
+// import HeroMaps from "./findus/HeroMaps"
 
 const sectionComponents = {
   club: (
@@ -28,6 +29,11 @@ const sectionComponents = {
       <ListInvestor />
     </>
   ),
+//   findus: (
+//     <>
+//       <HeroMaps />
+//     </>
+//   ),
 }
 
 const Section = ({ id, title, description }) => {
