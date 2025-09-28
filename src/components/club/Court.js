@@ -11,28 +11,18 @@ const carouselItems = [
   {
     id: 2,
     image: "/court2.png",
-    title: "RECEPTIONIST",
+    title: "COURTS",
   },
   {
     id: 3,
     image: "/court3.png",
-    title: "COURTS",
+    title: "RECEPTIONIST",
   },
   {
     id: 4,
-    image: "/court1.png",
-    title: "COURTS",
-  },
-  {
-    id: 5,
-    image: "/court2.png",
-    title: "COURTS",
-  },
-  {
-    id: 6,
     image: "/court3.png",
-    title: "COURTS",
-  },
+    title: "RECEPTIONIST",
+  }
 ]
 
 const Court = () => {
