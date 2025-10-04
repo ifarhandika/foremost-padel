@@ -1,140 +1,113 @@
 "use client"
-import Slider from "react-slick"
+import { useEffect, useState, useRef } from "react"
+import { Swiper, SwiperSlide } from "swiper/react"
+import { Navigation, Pagination, Autoplay } from "swiper/modules"
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa"
+import "swiper/css"
+import "swiper/css/navigation"
+import "swiper/css/pagination"
 
-const listOfInvestors = [
-  {
-    id: 1,
-    name: "Reza Ilham",
-    description: "Mega Asset Management",
-    occupation: "Fund Manager",
-    image: "/rezailham.png",
-  },
-  {
-    id: 2,
-    name: "Grace Christiadi",
-    description: "International Finance Corporation",
-    occupation: "Investment Analyst",
-    image: "/grace.png",
-  },
-  {
-    id: 3,
-    name: "Masagus Achmad Aqsha",
-    description: "Astra International Tbk.",
-    occupation: "Product Manager",
-    image: "/masagus.png",
-  },
-  {
-    id: 4,
-    name: "Aisyah Moulyni",
-    description: "Telkom Indonesia",
-    occupation: "B2B Digital Marketer",
-    image: "/aisyahmoulyni.png",
-  },
-  {
-    id: 5,
-    name: "Olga Patricia",
-    description: "Bank Central Asia",
-    occupation: "Wealth Specialist",
-    image: "/olgapatricia.png",
-  },
-  {
-    id: 6,
-    name: "Muhammad Fauzan",
-    description: "Dana Indonesia",
-    occupation: "Product Developer",
-    image: "/muhammadfauzan.png",
-  },
-  {
-    id: 7,
-    name: "Diva Milano",
-    description: "Altha Consulting",
-    occupation: "Consultant",
-    image: "/divamilano.png",
-  },
-  {
-    id: 6,
-    name: "Muhammad Alif",
-    description: "Traveloka",
-    occupation: "Senior Performance Marketing",
-    image: "/muhammadalif.png",
-  },
-]
-
-const Court = () => {
-  function NextArrow({ onClick }) {
-    return (
-      <button
-        onClick={onClick}
-        className="absolute -right-12 top-1/2 -translate-y-1/2 z-20
-                 w-10 h-10 flex items-center justify-center 
-                 bg-white text-[#022754] rounded-full shadow-lg
-                 cursor-pointer hover:bg-[#022754] hover:text-white transition">
-        <FaArrowRight size={20} />
-      </button>
-    )
-  }
-
-  function PrevArrow({ onClick }) {
-    return (
-      <button
-        onClick={onClick}
-        className="absolute -left-12 top-1/2 -translate-y-1/2 z-20
-                 w-10 h-10 flex items-center justify-center 
-                 bg-white text-[#022754] rounded-full shadow-lg
-                 cursor-pointer hover:bg-[#022754] hover:text-white transition">
-        <FaArrowLeft size={20} />
-      </button>
-    )
-  }
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 700,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    centerMode: true,
-    centerPadding: "0px",
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
-    responsive: [
-      {
-        breakpoint: 1280,
-        settings: { slidesToShow: 3 },
+async function fetchInvestors() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_API_URL}/v1/public/investors`,
+    {
+      headers: {
+        Authorization: `Basic ${process.env.NEXT_PUBLIC_BASIC_AUTH_TOKEN}`,
       },
-      {
-        breakpoint: 1024,
-        settings: { slidesToShow: 2 },
-      },
-      {
-        breakpoint: 768,
-        settings: { slidesToShow: 1 },
-      },
-    ],
-  }
+    }
+  )
+
+  if (!res.ok) throw new Error(`Failed to fetch investors (${res.status})`)
+
+  const data = await res.json()
+  return data.data || []
+}
+
+const Investor = () => {
+  const [investors, setInvestors] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const prevRef = useRef(null)
+  const nextRef = useRef(null)
+
+  useEffect(() => {
+    fetchInvestors()
+      .then(setInvestors)
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false))
+  }, [])
+
+  if (loading)
+    return <div className="py-10 text-center">Loading investors...</div>
+
+  if (error)
+    return <div className="py-10 text-center text-red-500">Error: {error}</div>
+
+  if (!investors.length)
+    return <div className="py-10 text-center">No investors available</div>
 
   return (
-    <div className="w-full max-w-[100rem] mx-auto py-10 px-10">
-      <Slider {...settings}>
-        {listOfInvestors.map((item) => (
-          <div key={item.id} className="px-3">
-            <div className="relative shadow-lg  overflow-hidden">
+    <div className="w-full max-w-[100rem] mx-auto py-10 px-10 relative">
+      <button
+        ref={prevRef}
+        className="absolute -left-2 top-1/2 -translate-y-1/2 z-20
+                   w-10 h-10 flex items-center justify-center 
+                   bg-white text-[#022754] rounded-full shadow-lg
+                   cursor-pointer hover:bg-[#022754] hover:text-white transition"
+        aria-label="Previous">
+        <FaArrowLeft size={20} />
+      </button>
+      <button
+        ref={nextRef}
+        className="absolute -right-2 top-1/2 -translate-y-1/2 z-20
+                   w-10 h-10 flex items-center justify-center 
+                   bg-white text-[#022754] rounded-full shadow-lg
+                   cursor-pointer hover:bg-[#022754] hover:text-white transition"
+        aria-label="Next">
+        <FaArrowRight size={20} />
+      </button>
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        slidesPerView={3}
+        spaceBetween={30}
+        navigation={{
+          prevEl: prevRef.current,
+          nextEl: nextRef.current,
+        }}
+        onBeforeInit={(swiper) => {
+          swiper.params.navigation.prevEl = prevRef.current
+          swiper.params.navigation.nextEl = nextRef.current
+        }}
+        pagination={{ clickable: true }}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: true,
+        }}
+        loop
+        breakpoints={{
+          320: { slidesPerView: 1 },
+          768: { slidesPerView: 2 },
+          1280: { slidesPerView: 3 },
+        }}
+        className="investor-swiper">
+        {investors.map((item) => (
+          <SwiperSlide key={item.id}>
+            <div className="relative shadow-lg overflow-hidden rounded-lg">
               <img
-                src={item.image}
-                alt={item.occupation}
+                src={item.investor_image}
+                alt={item.role}
                 className="w-full h-[400px] md:h-[500px] object-cover"
               />
               <div className="w-full bg-[#0D265A] text-white text-lg md:text-xl text-center py-3">
-                <h3 className="font-bold text-2xl">{item.occupation}</h3>
-                <h4 className="font-normal">{item.description}</h4>
+                <h3 className="font-bold text-2xl">{item.role}</h3>
+                <h4 className="font-normal">{item.company}</h4>
               </div>
             </div>
-          </div>
+          </SwiperSlide>
         ))}
-      </Slider>
+      </Swiper>
     </div>
   )
 }
 
-export default Court
+export default Investor
