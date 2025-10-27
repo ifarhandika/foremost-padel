@@ -1,17 +1,45 @@
 "use client"
-import { useRef } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import CountUp from "react-countup"
 
 export default function CompanyStats() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const [stats, setStats] = useState([
+    { number: 0, label: "COURTS" },
+    { number: 0, label: "INVESTORS" },
+    { number: 0, label: "EMPLOYEES" },
+  ])
 
-  const stats = [
-    { number: 4, label: "COURTS" },
-    { number: 21, label: "INVESTORS" },
-    { number: 17, label: "EMPLOYEES" },
-  ]
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_API_URL}/v1/public/companyData`,
+          {
+            headers: {
+              Authorization: `Basic ${process.env.NEXT_PUBLIC_BASIC_AUTH_TOKEN}`,
+            },
+          }
+        )
+
+        
+        const data = await res.json()
+        console.log("response status:", data)
+
+        setStats([
+          { number: data.data.courts, label: "COURTS" },
+          { number: data.data.investors, label: "INVESTORS" },
+          { number: data.data.employees, label: "EMPLOYEES" },
+        ])
+      } catch (err) {
+        console.error("Error fetching company data:", err)
+      }
+    }
+
+    fetchStats()
+  }, [])
 
   return (
     <section ref={ref} className="w-full py-12 pb-16">
@@ -22,7 +50,8 @@ export default function CompanyStats() {
             className="relative flex items-center justify-center"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.6, delay: i * 0.2 }}>
+            transition={{ duration: 0.6, delay: i * 0.2 }}
+          >
             <img
               src="/tennisball.png"
               alt="tennis ball"
@@ -31,7 +60,7 @@ export default function CompanyStats() {
 
             <div className="absolute flex flex-col items-center text-white font-bold leading-tight">
               <span className="text-4xl md:text-5xl lg:text-6xl">
-                {isInView ? <CountUp end={stat.number} duration={1.5} /> : 0}
+                {isInView ? <CountUp end={stat.number} duration={2} /> : 0}
               </span>
               <span className="text-lg md:text-xl lg:text-2xl mt-2 tracking-wide">
                 {stat.label}
