@@ -1,6 +1,5 @@
 "use client"
 import { useState } from "react"
-import emailjs from "@emailjs/browser"
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa"
 
 export default function ContactForm() {
@@ -43,39 +42,43 @@ export default function ContactForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setStatus("Sending...")
 
-    emailjs
-      .send(
-        "your_service_id", // from EmailJS
-        "your_template_id", // from EmailJS
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/v1/email/send-email`,
         {
-          from_name: formData.name,
-          from_email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-          to_email: "management@foremostpadel.com",
-        },
-        "your_public_key" // from EmailJS
-      )
-      .then(
-        () => {
-          setStatus("Message sent successfully!")
-          setFormData({ name: "", email: "", subject: "", message: "" })
-        },
-        (error) => {
-          console.error(error)
-          setStatus("Failed to send. Please try again later.")
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            subject: formData.subject,
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+          }),
         }
       )
+
+      if (!res.ok) throw new Error("Network response was not ok")
+
+      const data = await res.json()
+      console.log("Response:", data)
+
+      setStatus("Thank you for reaching out! We will get back to you soon.")
+      setFormData({ name: "", email: "", subject: "", message: "" })
+    } catch (error) {
+      console.error("Error:", error)
+      setStatus("Failed to send. Please try again later.")
+    }
   }
 
   return (
     <section className="w-full py-12 px-6 md:px-12 lg:px-20 text-white">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
-        {/* Left Form */}
         <div className="bg-[#0A1B55] p-6 md:p-10 rounded-lg shadow-lg">
           <h3 className="text-2xl md:text-3xl font-bold mb-6">GET IN TOUCH</h3>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -120,11 +123,13 @@ export default function ContactForm() {
                 value={formData.message}
                 onChange={handleChange}
                 className="w-full p-3 rounded bg-[#4C6EF5] text-white focus:outline-none"
-                required></textarea>
+                required
+              ></textarea>
             </div>
             <button
               type="submit"
-              className="w-full py-3 rounded bg-blue-500 hover:bg-blue-600 text-white font-bold transition">
+              className="w-full py-3 rounded bg-blue-500 hover:bg-blue-600 text-white font-bold transition"
+            >
               Send
             </button>
           </form>
