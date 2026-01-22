@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom"
 import { useState } from "react"
 import { HiMenu, HiX } from "react-icons/hi"
 
-const Navbar = () => {
+export default function Navbar() {
   const location = useLocation()
   const pathname = location.pathname
   const [isOpen, setIsOpen] = useState(false)
@@ -11,7 +11,6 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 w-full z-50 flex justify-center items-center pt-5">
       <div className="flex justify-between w-3/4 border-b-[2px] border-white relative">
-        {/* Logo */}
         <div className="mb-5">
           <img
             src="/foremost-logo.png"
@@ -20,7 +19,6 @@ const Navbar = () => {
           />
         </div>
 
-        {/* Desktop Nav */}
         <ul className="hidden lg:flex justify-between text-3xl text-white w-3/5">
           {NAV_LINKS.map((link) => {
             const isActive = pathname === link.href
@@ -40,7 +38,6 @@ const Navbar = () => {
         </ul>
         <div></div>
 
-        {/* Burger */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="lg:hidden text-white text-3xl ml-auto"
@@ -49,7 +46,6 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Dropdown */}
       <div
         className={`lg:hidden absolute top-full left-0 w-full 
           bg-[#022754]/90 backdrop-blur-md shadow-lg transform transition-all duration-500 ease-in-out 
@@ -89,5 +85,3 @@ const Navbar = () => {
     </nav>
   )
 }
-
-export default Navbar

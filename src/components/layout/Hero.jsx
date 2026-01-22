@@ -1,8 +1,13 @@
-const Hero = ({ title, description, backgroundImage }) => {
+export default function Hero({
+  title,
+  description,
+  backgroundImage,
+  children,
+}) {
   return (
     <section
       className="relative h-screen bg-cover bg-center"
-      style={{ backgroundImage: `url(${backgroundImage.replace(/'/g, "")})` }}
+      style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <div className="absolute bottom-0 left-0 right-0 h-[25%] bg-gradient-to-b from-transparent to-black/80"></div>
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
@@ -25,9 +30,8 @@ const Hero = ({ title, description, backgroundImage }) => {
         >
           {description}
         </h2>
+        {children}
       </div>
     </section>
   )
 }
-
-export default Hero

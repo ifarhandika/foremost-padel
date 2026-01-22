@@ -1,32 +1,29 @@
-import Hero from "@/components/Hero"
-import Section from "@/components/Section"
+import { Hero, PageSection, SectionHeader } from "@/components/layout"
+import { SectionTitle } from "@/components/ui"
+import { FranchiseSteps, InvestorCarousel } from "@/components/investor"
+import { HERO_CONFIG, SECTION_CONFIG } from "@/constants"
 
 export default function Investor() {
-  const heroDetails = {
-    title: "FRANCHISE",
-    description: "You Invest, We Handle the Rest - from Finance to Marketing",
-    backgroundImage: "'/investor-hero-bg.png'",
-  }
-
-  const sectionDetails = {
-    id: "investor",
-    title: "HOW IT WORKS",
-    description: "Here's the Franchise Onboarding Process",
-  }
+  const hero = HERO_CONFIG.investor
+  const section = SECTION_CONFIG.investor
 
   return (
     <>
       <Hero
-        title={heroDetails.title}
-        description={heroDetails.description}
-        backgroundImage={heroDetails.backgroundImage}
+        title={hero.title}
+        description={hero.description}
+        backgroundImage={hero.backgroundImage}
       />
 
-      <Section
-        id={sectionDetails.id}
-        title={sectionDetails.title}
-        description={sectionDetails.description}
-      />
+      <PageSection>
+        <SectionHeader
+          title={section.title}
+          description={section.description}
+        />
+        <FranchiseSteps />
+        <SectionTitle title="REMARKABLE INVESTOR" variant="left" />
+        <InvestorCarousel />
+      </PageSection>
     </>
   )
 }

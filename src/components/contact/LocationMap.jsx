@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 
-export default function HeroMaps() {
+export default function LocationMap() {
   const youtubeUrl = import.meta.env.VITE_VIDEO_URL
 
   return (

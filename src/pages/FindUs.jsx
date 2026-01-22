@@ -1,18 +1,14 @@
-import CompanyStats from "@/components/findus/CompanyStats"
-import HeroMaps from "@/components/findus/HeroMaps"
-import Breakpoint from "@/components/Breakpoint"
-import ContactForm from "@/components/findus/ContactForm"
+import { PageSection } from "@/components/layout"
+import { SectionTitle } from "@/components/ui"
+import { LocationMap, CompanyStats, ContactForm } from "@/components/contact"
 
 export default function FindUs() {
   return (
-    <div
-      className="min-h-screen bg-cover bg-center bg-black"
-      style={{ backgroundImage: "url('/foremost-bg.png')" }}
-    >
-      <HeroMaps />
+    <PageSection className="min-h-screen">
+      <LocationMap />
       <CompanyStats />
-      <Breakpoint title="CONTACT US" />
+      <SectionTitle title="CONTACT US" variant="left" />
       <ContactForm />
-    </div>
+    </PageSection>
   )
 }

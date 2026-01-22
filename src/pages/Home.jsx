@@ -1,42 +1,26 @@
-import Hero from "@/components/Hero"
-import Section from "@/components/Section"
+import { Hero, PageSection, SectionHeader } from "@/components/layout"
+import { SectionTitle, Button } from "@/components/ui"
+import { CourtCarousel, CourtFeatures } from "@/components/home"
+import { HERO_CONFIG, SECTION_CONFIG, BOOKING_URL } from "@/constants"
 
 export default function Home() {
-  const heroDetails = {
-    title: "FOREMOST",
-    description: "In a Mission Building 100 Courts Across Indonesia",
-    backgroundImage: "'/club-hero-bg.png'",
-  }
-
-  const sectionDetails = {
-    id: "club",
-    title: "THE COURT",
-    description: "World-Class Standard",
-  }
+  const hero = HERO_CONFIG.home
+  const section = SECTION_CONFIG.club
 
   return (
     <>
       <div className="relative">
         <Hero
-          title={heroDetails.title}
-          description={heroDetails.description}
-          backgroundImage={heroDetails.backgroundImage}
+          title={hero.title}
+          description={hero.description}
+          backgroundImage={hero.backgroundImage}
         />
 
         <div className="absolute bottom-[22%] left-1/2 -translate-x-1/2 z-20 flex justify-center">
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://courtside.id/mitra?mitra_id=9fb7331a-de7f-46ba-a208-73eec815a830"
-            className="
-              flex items-center justify-center gap-3
-              bg-[#013b82]/50 hover:bg-[#002a5e]
-              text-white font-semibold
-              text-sm sm:text-base md:text-lg lg:text-xl
-              px-5 py-2.5 sm:px-6 sm:py-3 md:px-8 md:py-4
-              rounded-full transition-all duration-300
-              shadow-lg backdrop-blur-sm 
-            "
+          <Button
+            href={BOOKING_URL}
+            isExternal
+            className="gap-3 text-sm sm:text-base md:text-lg lg:text-xl"
           >
             BOOK NOW
             <img
@@ -44,15 +28,18 @@ export default function Home() {
               alt="C logo"
               className="w-12 h-12 object-contain"
             />
-          </a>
+          </Button>
         </div>
       </div>
 
-      <Section
-        id={sectionDetails.id}
-        title={sectionDetails.title}
-        description={sectionDetails.description}
-      />
+      <PageSection>
+        <SectionHeader
+          title={section.title}
+          description={section.description}
+        />
+        <CourtCarousel />
+        <CourtFeatures />
+      </PageSection>
     </>
   )
 }

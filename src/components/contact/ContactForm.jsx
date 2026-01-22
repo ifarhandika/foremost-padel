@@ -1,33 +1,15 @@
 import { useState } from "react"
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa"
+import { CONTACT_INFO } from "@/constants"
+import { sendContactEmail } from "@/services/api"
+
+const iconMap = {
+  phone: <FaPhoneAlt className="text-white text-2xl mt-1" />,
+  email: <FaEnvelope className="text-white text-2xl mt-1" />,
+  location: <FaMapMarkerAlt className="text-white text-2xl mt-1" />,
+}
 
 export default function ContactForm() {
-  const contactInfo = [
-    {
-      id: 1,
-      icon: <FaPhoneAlt className="text-white text-2xl mt-1" />,
-      title: "Whatsapp",
-      detail: "+62 813 281 171 731",
-    },
-    {
-      id: 2,
-      icon: <FaEnvelope className="text-white text-2xl mt-1" />,
-      title: "Email",
-      detail: "management@foremostpadel.com",
-    },
-    {
-      id: 3,
-      icon: <FaMapMarkerAlt className="text-white text-2xl mt-1" />,
-      title: "Address",
-      detail: (
-        <>
-          Jl. Gayung Kebonsari,
-          <br /> Gayungan, Surabaya, Jawa Timur
-        </>
-      ),
-    },
-  ]
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -47,48 +29,31 @@ export default function ContactForm() {
     setStatus("Sending...")
     setIsLoading(true)
 
-    const apiUrl = import.meta.env.VITE_BASE_API_URL
-
     try {
-      const res = await fetch(
-        `${apiUrl}/v1/email/send-email`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            subject: formData.subject,
-            name: formData.name,
-            email: formData.email,
-            message: formData.message,
-          }),
-        },
-      )
-      
-      if (!res.ok) {
-        throw new Error(`Server error: ${res.status}`)
-      }
-
-      const data = await res.json()
+      await sendContactEmail({
+        subject: formData.subject,
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      })
 
       setStatus("Thank you for reaching out! We will get back to you soon.")
       setFormData({ name: "", email: "", subject: "", message: "" })
-      setIsLoading(false)
     } catch (error) {
       setStatus("Failed to send. Please try again later.")
+    } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <section className="w-full py-12 px-6 md:px-12 lg:px-20 text-white">
+    <section className="w-full py-12 px-6 md:px-12 lg:px-20 text-white text-left">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div className="bg-[#0A1B55] p-6 md:p-10 rounded-lg shadow-lg">
-          <h3 className="text-2xl md:text-3xl font-bold mb-6">GET IN TOUCH</h3>
+        <div className="bg-[#0A1B55] p-6 md:p-10 rounded-lg shadow-lg text-left">
+          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-left">GET IN TOUCH</h3>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold">Name</label>
+              <label className="block text-sm font-semibold text-left">Name</label>
               <input
                 type="text"
                 name="name"
@@ -99,7 +64,7 @@ export default function ContactForm() {
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold">Email</label>
+              <label className="block text-sm font-semibold text-left">Email</label>
               <input
                 type="email"
                 name="email"
@@ -110,7 +75,7 @@ export default function ContactForm() {
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold">Subject</label>
+              <label className="block text-sm font-semibold text-left">Subject</label>
               <input
                 type="text"
                 name="subject"
@@ -121,7 +86,7 @@ export default function ContactForm() {
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold">Message</label>
+              <label className="block text-sm font-semibold text-left">Message</label>
               <textarea
                 name="message"
                 rows="4"
@@ -142,11 +107,11 @@ export default function ContactForm() {
           {status && <p className="mt-4 text-sm">{status}</p>}
         </div>
 
-        <div className="flex flex-col justify-center space-y-10">
-          {contactInfo.map((item) => (
+        <div className="flex flex-col justify-center space-y-10 text-left">
+          {CONTACT_INFO.map((item) => (
             <div key={item.id} className="flex items-start gap-5">
-              {item.icon}
-              <div>
+              {iconMap[item.iconName]}
+              <div className="text-left">
                 <h4 className="font-bold text-2xl">{item.title}</h4>
                 <p className="text-xl">{item.detail}</p>
               </div>

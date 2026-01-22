@@ -1,43 +1,25 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import CountUp from "react-countup"
+import { useFetch } from "@/hooks"
+import { fetchCompanyStats } from "@/services/api"
 
 export default function CompanyStats() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const [stats, setStats] = useState([
-    { number: 0, label: "COURTS" },
-    { number: 0, label: "INVESTORS" },
-    { number: 0, label: "EMPLOYEES" },
-  ])
+  const { data: statsData } = useFetch(fetchCompanyStats)
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const res = await fetch(
-          `${import.meta.env.VITE_BASE_API_URL}/v1/public/companyData`,
-          {
-            headers: {
-              Authorization: `Basic ${import.meta.env.VITE_BASIC_AUTH_TOKEN}`,
-            },
-          },
-        )
-
-        const data = await res.json()
-        console.log("response status:", data)
-
-        setStats([
-          { number: data.data.courts, label: "COURTS" },
-          { number: data.data.investors, label: "INVESTORS" },
-          { number: data.data.employees, label: "EMPLOYEES" },
-        ])
-      } catch (err) {
-        console.error("Error fetching company data:", err)
-      }
-    }
-
-    fetchStats()
-  }, [])
+  const stats = statsData
+    ? [
+        { number: statsData.courts, label: "COURTS" },
+        { number: statsData.investors, label: "INVESTORS" },
+        { number: statsData.employees, label: "EMPLOYEES" },
+      ]
+    : [
+        { number: 0, label: "COURTS" },
+        { number: 0, label: "INVESTORS" },
+        { number: 0, label: "EMPLOYEES" },
+      ]
 
   return (
     <section ref={ref} className="w-full py-12 pb-16">
