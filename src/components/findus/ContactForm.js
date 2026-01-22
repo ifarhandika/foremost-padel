@@ -36,6 +36,7 @@ export default function ContactForm() {
   })
 
   const [status, setStatus] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -44,10 +45,13 @@ export default function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setStatus("Sending...")
+    setIsLoading(true)
+
+    const apiUrl = import.meta.env.VITE_BASE_API_URL
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_API_URL}/v1/email/send-email`,
+        `${apiUrl}/v1/email/send-email`,
         {
           method: "POST",
           headers: {
@@ -61,17 +65,19 @@ export default function ContactForm() {
           }),
         },
       )
-
-      if (!res.ok) throw new Error("Network response was not ok")
+      
+      if (!res.ok) {
+        throw new Error(`Server error: ${res.status}`)
+      }
 
       const data = await res.json()
-      console.log("Response:", data)
 
       setStatus("Thank you for reaching out! We will get back to you soon.")
       setFormData({ name: "", email: "", subject: "", message: "" })
+      setIsLoading(false)
     } catch (error) {
-      console.error("Error:", error)
       setStatus("Failed to send. Please try again later.")
+      setIsLoading(false)
     }
   }
 
@@ -127,7 +133,8 @@ export default function ContactForm() {
             </div>
             <button
               type="submit"
-              className="w-full py-3 rounded bg-blue-500 hover:bg-blue-600 text-white font-bold transition"
+              disabled={isLoading}
+              className="w-full py-3 rounded bg-blue-500 hover:bg-blue-600 text-white font-bold transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Send
             </button>
