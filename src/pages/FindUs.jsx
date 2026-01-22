@@ -3,11 +3,12 @@ import HeroMaps from "@/components/findus/HeroMaps"
 import Breakpoint from "@/components/Breakpoint"
 import ContactForm from "@/components/findus/ContactForm"
 
-const FindUs = () => {
+export default function FindUs() {
   return (
     <div
       className="min-h-screen bg-cover bg-center bg-black"
-      style={{ backgroundImage: "url('/foremost-bg.png')" }}>
+      style={{ backgroundImage: "url('/foremost-bg.png')" }}
+    >
       <HeroMaps />
       <CompanyStats />
       <Breakpoint title="CONTACT US" />
@@ -15,5 +16,3 @@ const FindUs = () => {
     </div>
   )
 }
-
-export default FindUs

@@ -1,7 +1,7 @@
 import Hero from "@/components/Hero"
 import Section from "@/components/Section"
 
-const Investor = () => {
+export default function Investor() {
   const heroDetails = {
     title: "FRANCHISE",
     description: "You Invest, We Handle the Rest - from Finance to Marketing",
@@ -30,5 +30,3 @@ const Investor = () => {
     </>
   )
 }
-
-export default Investor

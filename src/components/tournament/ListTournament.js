@@ -1,16 +1,14 @@
-"use client"
-
 import { Card, Button } from "flowbite-react"
 import { useState, useEffect } from "react"
 
 async function fetchEvent() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_API_URL}/v1/public/events`,
+    `${import.meta.env.VITE_BASE_API_URL}/v1/public/events`,
     {
       headers: {
-        Authorization: `Basic ${process.env.NEXT_PUBLIC_BASIC_AUTH_TOKEN}`,
+        Authorization: `Basic ${import.meta.env.VITE_BASIC_AUTH_TOKEN}`,
       },
-    }
+    },
   )
 
   if (!res.ok) throw new Error(`Failed to fetch events (${res.status})`)
@@ -98,7 +96,8 @@ export default function EventList() {
                   </p>
                   <div className="mt-2 text-xs text-gray-500">
                     <p>
-                      <span className="font-semibold">Time:</span> {formatEventTime(event.time)}
+                      <span className="font-semibold">Time:</span>{" "}
+                      {formatEventTime(event.time)}
                     </p>
                     <p>
                       <span className="font-semibold">Location:</span>{" "}

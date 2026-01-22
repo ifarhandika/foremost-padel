@@ -1,7 +1,7 @@
 import Hero from "@/components/Hero"
 import Section from "@/components/Section"
 
-const Tournament = () => {
+export default function Tournament() {
   const heroDetails = {
     title: "TOURNAMENT",
     description:
@@ -31,5 +31,3 @@ const Tournament = () => {
     </>
   )
 }
-
-export default Tournament

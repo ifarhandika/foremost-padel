@@ -1,13 +1,11 @@
-"use client"
-
 import { NAV_LINKS } from "@/constants"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { Link, useLocation } from "react-router-dom"
 import { useState } from "react"
 import { HiMenu, HiX } from "react-icons/hi"
 
 const Navbar = () => {
-  const pathname = usePathname()
+  const location = useLocation()
+  const pathname = location.pathname
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -28,13 +26,14 @@ const Navbar = () => {
             const isActive = pathname === link.href
             return (
               <li key={link.key} className="relative group">
-                <Link href={link.href}>{link.label}</Link>
+                <Link to={link.href}>{link.label}</Link>
                 <span
                   className={`absolute left-0 -bottom-[2px] h-[2px] transition-all duration-300 ease-in-out ${
                     isActive
                       ? "w-full bg-blue-500"
                       : "w-0 bg-blue-500 group-hover:w-full"
-                  }`}></span>
+                  }`}
+                ></span>
               </li>
             )
           })}
@@ -44,7 +43,8 @@ const Navbar = () => {
         {/* Burger */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden text-white text-3xl ml-auto">
+          className="lg:hidden text-white text-3xl ml-auto"
+        >
           {isOpen ? <HiX /> : <HiMenu />}
         </button>
       </div>
@@ -57,7 +57,8 @@ const Navbar = () => {
             isOpen
               ? "opacity-100 translate-y-0"
               : "opacity-0 -translate-y-5 pointer-events-none"
-          }`}>
+          }`}
+      >
         <ul className="flex flex-col items-center space-y-6 py-6 text-xl">
           {NAV_LINKS.map((link) => {
             const isActive = pathname === link.href
@@ -65,17 +66,20 @@ const Navbar = () => {
               <li
                 key={link.key}
                 onClick={() => setIsOpen(false)}
-                className="w-full text-center text-white">
+                className="w-full text-center text-white"
+              >
                 <Link
-                  href={link.href}
-                  className="relative group transition-colors duration-300">
+                  to={link.href}
+                  className="relative group transition-colors duration-300"
+                >
                   {link.label}
                   <span
                     className={`absolute left-0 -bottom-[2px] h-[2px] transition-all duration-300 ease-in-out ${
                       isActive
                         ? "w-full bg-blue-500"
                         : "w-0 bg-blue-500 group-hover:w-full"
-                    }`}></span>
+                    }`}
+                  ></span>
                 </Link>
               </li>
             )

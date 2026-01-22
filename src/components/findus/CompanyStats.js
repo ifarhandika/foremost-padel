@@ -1,4 +1,3 @@
-"use client"
 import { useState, useEffect, useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import CountUp from "react-countup"
@@ -16,15 +15,14 @@ export default function CompanyStats() {
     const fetchStats = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_API_URL}/v1/public/companyData`,
+          `${import.meta.env.VITE_BASE_API_URL}/v1/public/companyData`,
           {
             headers: {
-              Authorization: `Basic ${process.env.NEXT_PUBLIC_BASIC_AUTH_TOKEN}`,
+              Authorization: `Basic ${import.meta.env.VITE_BASIC_AUTH_TOKEN}`,
             },
-          }
+          },
         )
 
-        
         const data = await res.json()
         console.log("response status:", data)
 

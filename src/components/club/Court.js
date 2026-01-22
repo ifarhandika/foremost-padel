@@ -1,4 +1,3 @@
-"use client"
 import { useEffect, useState, useRef } from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation, Pagination, Autoplay } from "swiper/modules"
@@ -9,12 +8,12 @@ import "swiper/css/pagination"
 
 async function fetchCourt() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_API_URL}/v1/public/courts`,
+    `${import.meta.env.VITE_BASE_API_URL}/v1/public/courts`,
     {
       headers: {
-        Authorization: `Basic ${process.env.NEXT_PUBLIC_BASIC_AUTH_TOKEN}`,
+        Authorization: `Basic ${import.meta.env.VITE_BASIC_AUTH_TOKEN}`,
       },
-    }
+    },
   )
 
   if (!res.ok) throw new Error(`Failed to fetch courts (${res.status})`)
@@ -51,7 +50,8 @@ const Court = () => {
                    w-10 h-10 flex items-center justify-center 
                    bg-white text-[#022754] rounded-full shadow-lg
                    cursor-pointer hover:bg-[#022754] hover:text-white transition"
-        aria-label="Previous">
+        aria-label="Previous"
+      >
         <FaArrowLeft size={20} />
       </button>
       <button
@@ -60,7 +60,8 @@ const Court = () => {
                    w-10 h-10 flex items-center justify-center 
                    bg-white text-[#022754] rounded-full shadow-lg
                    cursor-pointer hover:bg-[#022754] hover:text-white transition"
-        aria-label="Next">
+        aria-label="Next"
+      >
         <FaArrowRight size={20} />
       </button>
       <Swiper
@@ -86,7 +87,8 @@ const Court = () => {
           768: { slidesPerView: 2 },
           1280: { slidesPerView: 3 },
         }}
-        className="court-swiper">
+        className="court-swiper"
+      >
         {courts.map((item) => (
           <SwiperSlide key={item.id}>
             <div className="relative shadow-lg border-[20px] border-[#022754] overflow-hidden rounded-lg">

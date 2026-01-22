@@ -1,4 +1,3 @@
-"use client"
 import { useState } from "react"
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa"
 
@@ -60,7 +59,7 @@ export default function ContactForm() {
             email: formData.email,
             message: formData.message,
           }),
-        }
+        },
       )
 
       if (!res.ok) throw new Error("Network response was not ok")

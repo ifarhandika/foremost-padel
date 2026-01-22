@@ -1,9 +1,7 @@
-"use client"
 import { motion } from "framer-motion"
-import Image from "next/image"
 
 export default function HeroMaps() {
-  const youtubeUrl = process.env.NEXT_PUBLIC_VIDEO_URL
+  const youtubeUrl = import.meta.env.VITE_VIDEO_URL
 
   return (
     <div className="flex justify-center items-center min-h-[120vh] relative overflow-hidden">
@@ -14,13 +12,12 @@ export default function HeroMaps() {
         className="relative w-full max-w-6xl flex justify-center px-4"
       >
         <div className="relative w-full max-w-[850px]">
-          <Image
+          <img
             src="/ilustrasi-jawa.png"
             alt="Map of Java"
             width={850}
             height={600}
             className="w-full h-auto object-contain"
-            priority
           />
 
           <div
