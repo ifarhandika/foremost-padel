@@ -50,10 +50,14 @@ export default function ContactForm() {
     <section className="w-full py-12 px-6 md:px-12 lg:px-20 text-white text-left">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
         <div className="bg-[#0A1B55] p-6 md:p-10 rounded-lg shadow-lg text-left">
-          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-left">GET IN TOUCH</h3>
+          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-left">
+            GET IN TOUCH
+          </h3>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold text-left">Name</label>
+              <label className="block text-sm font-semibold text-left">
+                Name
+              </label>
               <input
                 type="text"
                 name="name"
@@ -64,7 +68,9 @@ export default function ContactForm() {
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-left">Email</label>
+              <label className="block text-sm font-semibold text-left">
+                Email
+              </label>
               <input
                 type="email"
                 name="email"
@@ -75,7 +81,9 @@ export default function ContactForm() {
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-left">Subject</label>
+              <label className="block text-sm font-semibold text-left">
+                Subject
+              </label>
               <input
                 type="text"
                 name="subject"
@@ -86,7 +94,9 @@ export default function ContactForm() {
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-left">Message</label>
+              <label className="block text-sm font-semibold text-left">
+                Message
+              </label>
               <textarea
                 name="message"
                 rows="4"
